@@ -8,4 +8,4 @@ RUN apt-get update && \
 ADD etc/confd/ /etc/confd
 
 #this environemtn variable needs to be passed in
-CMD /usr/bin/confd -interval=60 -node=http://$COREOS_PRIVATE_IPV4:4001
+CMD /usr/bin/confd -interval=60 -node=http://$COREOS_PRIVATE_IPV4:2379
