@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 #this script is invoked by confd when it updates the templated
 #configuration files. We use the Docker API to tell the docker service
 #on the host to send a HUP signal to nginx. This requires that the
