@@ -58,6 +58,24 @@ http {
   {{ end }}
   }
 
+  upstream stf_povider1 {
+    {{ range getvs "/services/provider1/*" }}
+      server {{ . }} max_fails=0;
+    {{ end }}
+  }
+
+  upstream stf_povider2 {
+    {{ range getvs "/services/provider2/*" }}
+      server {{ . }} max_fails=0;
+    {{ end }}
+  }
+
+  upstream stf_povider3 {
+    {{ range getvs "/services/provider3/*" }}
+      server {{ . }} max_fails=0;
+    {{ end }}
+  }
+
   types {
     application/javascript  js;
     image/gif               gif;
@@ -83,7 +101,7 @@ http {
 
     location ~ "^/d/1/([^/]+)/(?<port>[0-9]{5})/$" {
       # PLEASE UPDATE IP ADDRESS WITH APPROPRIATE ONE
-      proxy_pass http://172.17.8.103:$port/;
+      proxy_pass http://stf_povider1:$port/;
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection $connection_upgrade;
@@ -93,7 +111,7 @@ http {
 
     location ~ "^/d/2/([^/]+)/(?<port>[0-9]{5})/$" {
       # PLEASE UPDATE IP ADDRESS WITH APPROPRIATE ONE
-      proxy_pass http://172.17.8.102:$port/;
+      proxy_pass http://stf_povider2:$port/;
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection $connection_upgrade;
@@ -103,7 +121,7 @@ http {
 
     location ~ "^/d/3/([^/]+)/(?<port>[0-9]{5})/$" {
       # PLEASE UPDATE IP ADDRESS WITH APPROPRIATE ONE
-      proxy_pass http://172.17.8.101:$port/;
+      proxy_pass http://stf_povider3:$port/;
       proxy_http_version 1.1;
       proxy_set_header Upgrade $http_upgrade;
       proxy_set_header Connection $connection_upgrade;
